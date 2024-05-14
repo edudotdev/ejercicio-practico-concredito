@@ -1,10 +1,12 @@
 import { createPool } from 'mysql2/promise'
-import { DB_DATABASE, DB_HOST, DB_PASS, DB_PORT, DB_USER } from './config.js'
+import { config } from 'dotenv'
+
+config()
 
 export const pool = createPool({
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASS,
-  port: DB_PORT,
-  database: DB_DATABASE
+  port: process.env.MYSQLDB_DOCKER_PORT,
+  host: process.env.MYSQLDB_HOST,
+  user: process.env.MYSQLDB_USER,
+  password: process.env.MYSQLDB_PASSWORD,
+  database: process.env.MYSQLDB_DATABASE
 })
