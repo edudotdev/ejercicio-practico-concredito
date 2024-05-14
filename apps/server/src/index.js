@@ -1,6 +1,5 @@
 import app from './app.js'
-import { PORT } from './config.js'
 
-app.listen(PORT)
+app.listen(process.env.NODE_DOCKER_PORT)
 
-console.log('server running on port:', PORT)
+console.log('server running on port:', process.env.NODE_DOCKER_PORT)
