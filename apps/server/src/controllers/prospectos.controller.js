@@ -17,7 +17,7 @@ export class ProspectoController {
     const { id } = req.params
     try {
       const [rows] = await ProspectoModel.getProspectoById(id)
-      res.json(rows)
+      res.json({ prospecto: rows[0][0], document: rows[1]})
     } catch (error) {
       return res.status(500).json({
         message: "Something goes wrong"
@@ -28,17 +28,18 @@ export class ProspectoController {
   //create
   static async createProspecto(req, res) {
     const prospectoData = req.body
+    const prospectoFiles = req.files
     try {
-      const [result] = await ProspectoModel.createProspecto(prospectoData)
+      const [result] = await ProspectoModel.createProspecto(prospectoData, prospectoFiles)
       if (result.affectedRows <= 0) return res.status(404).json({
         message: "Prospecto not created"
       })
-      res.status(201).json(prospectoData)
     } catch (error) {
       return res.status(500).json({
         message: "Something goes wrong"
       })
     }
+    res.status(201).json({message: 'Prospecto created'})
   }
 
   //update
@@ -47,11 +48,10 @@ export class ProspectoController {
     const statusData = req.body
     try {
       const result = await ProspectoModel.updateProspectoStatus(id, statusData)
-
       if (result.affectedRows === 0) {
-        res.status(404).json({ error: 'Prospecto no encontrado' });
+        res.status(404).json({ error: 'Prospecto not found' })
       } else {
-        res.json({ message: 'Prospecto actualizado correctamente' });
+        res.json({ message: 'Prospecto updated' })
       }
     } catch (error) {
       return res.status(500).json({
@@ -65,10 +65,8 @@ export class ProspectoController {
     const { id } = req.params
     try {
       const [result] = await ProspectoModel.deleteProspectoById(id)
-      console.log(result, result.affectedRows)
-
       if (result.affectedRows <= 0) {
-        res.status(404).json({ error: 'Prospecto not found' });
+        res.status(404).json({ error: 'Prospecto not found' })
       } else {
         res.json({ message: "Prospecto has been deleted" })
       } 
