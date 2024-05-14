@@ -20,7 +20,9 @@ En consola se mostrará el enlace de la preview, visita el enlace con control + 
 5. Ya puedes probar la aplicación.
 
 ### Tecnologías usadas
+
 ####frontend:
 Vite, React, TypeScript, Tailwindcss
+
 ####backend:
 Nodejs, MySQL
