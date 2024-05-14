@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  concreditodb:
+    image: mysql
+    env_file:
+      - ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      -  $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+
+  app: 
+    build: .
+    depends_on:
+      - concreditodb
+    links: 
+      - concreditodb
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
