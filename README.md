@@ -21,8 +21,8 @@ En consola se mostrará el enlace de la preview, visita el enlace con control + 
 
 ### Tecnologías usadas
 
-####frontend:
+**frontend:**
 Vite, React, TypeScript, Tailwindcss
 
-####backend:
+**backend:**
 Nodejs, MySQL
