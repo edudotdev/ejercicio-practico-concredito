@@ -1,19 +1,18 @@
-import { useEffect } from 'react'
+import { Route, Routes} from 'react-router-dom'
+import { Home, NewProspecto, Prospecto } from './routes'
 
 function App() {
-  useEffect(() =>{
-    const get = async () => {
-      const res = await fetch('http://localhost:3000/api/prospectos/1')
-      const data = await res.json()
-      console.log(data)
-    }
-    get()
-  }, [])
 
   return (
-    <h1>
-      hola
-    </h1>
+    <div>
+      <div className='px-3 max-w-6xl mx-auto my-7'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/new-prospecto' element={<NewProspecto />} />
+          <Route path='/prospecto/:id' element={<Prospecto />} />
+        </Routes>
+      </div>
+    </div>
   )
 }
 
